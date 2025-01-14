@@ -65,6 +65,15 @@ public class ArticleController {
         return ResponseEntity.ok(articles);
     }
 
+    @GetMapping("/search-content")
+    public ResponseEntity<List<Article>> getArticlesCreatedAfter(@RequestParam LocalDateTime searchTerms) {
+        List<Article> articles = articleRepository.findByCreatedAfter(searchTerms);
+        if (articles.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(articles);
+    }
+
     @PostMapping
     public ResponseEntity<Article> createArticle(@RequestBody Article article) {
         article.setCreatedAt(LocalDateTime.now());
