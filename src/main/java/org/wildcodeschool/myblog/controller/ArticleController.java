@@ -67,7 +67,7 @@ public class ArticleController {
 
     @GetMapping("/search-created-after")
     public ResponseEntity<List<Article>> getArticlesCreatedAfter(@RequestParam LocalDateTime searchTerms) {
-        List<Article> articles = articleRepository.findByCreatedAt(searchTerms);
+        List<Article> articles = articleRepository.findByCreatedAtGreaterThanEqual(searchTerms);
         if (articles.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
