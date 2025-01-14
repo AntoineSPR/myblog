@@ -3,8 +3,6 @@ package org.wildcodeschool.myblog.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -68,6 +66,15 @@ public class ArticleController {
     @GetMapping("/search-created-after")
     public ResponseEntity<List<Article>> getArticlesCreatedAfter(@RequestParam LocalDateTime searchTerms) {
         List<Article> articles = articleRepository.findByCreatedAtGreaterThanEqual(searchTerms);
+        if (articles.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(articles);
+    }
+
+    @GetMapping("/last-five")
+    public ResponseEntity<List<Article>> getLastFiveArticles() {
+        List<Article> articles = articleRepository.findTop5ByOrderByCreatedAtDesc();
         if (articles.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
