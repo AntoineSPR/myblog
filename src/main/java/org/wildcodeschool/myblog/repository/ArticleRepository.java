@@ -9,5 +9,5 @@ import org.wildcodeschool.myblog.model.Article;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByTitle(String title);
     List<Article> findByContent(String content);
-    List<Article> findByCreatedAfter (LocalDateTime createdAt);
+    List<Article> findByCreatedAt (LocalDateTime createdAt);
 }
