@@ -34,16 +34,16 @@ public class ArticleController {
     }
 
     private ArticleDTO convertToDTO(Article article) {
-    ArticleDTO articleDTO = new ArticleDTO();
-    articleDTO.setId(article.getId());
-    articleDTO.setTitle(article.getTitle());
-    articleDTO.setContent(article.getContent());
-    articleDTO.setUpdatedAt(article.getUpdatedAt());
-    if (article.getCategory() != null) {
-        articleDTO.setCategoryName(article.getCategory().getName());
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setId(article.getId());
+        articleDTO.setTitle(article.getTitle());
+        articleDTO.setContent(article.getContent());
+        articleDTO.setUpdatedAt(article.getUpdatedAt());
+        if (article.getCategory() != null) {
+          articleDTO.setCategoryName(article.getCategory().getName());
+        }
+        return articleDTO;
     }
-    return articleDTO;
-}
 
     @GetMapping
     public ResponseEntity<List<ArticleDTO>> getAllArticles() {
