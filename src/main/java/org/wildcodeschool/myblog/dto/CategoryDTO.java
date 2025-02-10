@@ -3,13 +3,11 @@ package org.wildcodeschool.myblog.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.wildcodeschool.myblog.model.Article;
-
 public class CategoryDTO {
     private Long id;
     private String name;
     private LocalDateTime updatedAt;
-    private List<ArticleDTO> linkedArticles;
+    private List<ArticleDTO> articles;
 
     // Getters et Setters
 
@@ -37,11 +35,11 @@ public class CategoryDTO {
         this.updatedAt = updatedAt;
     }
 
-    public List<ArticleDTO> getLinkedArticles() {
-        return linkedArticles;
+    public List<ArticleDTO> getArticles() {
+        return articles;
     }
 
-    public void setLinkedArticles(List<ArticleDTO> linkedArticles) {
-        this.linkedArticles = linkedArticles;
+    public void setArticles(List<ArticleDTO> articles) {
+        this.articles = articles;
     }
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.wildcodeschool.myblog.dto.ArticleDTO;
 import org.wildcodeschool.myblog.dto.CategoryDTO;
-import org.wildcodeschool.myblog.model.Article;
 import org.wildcodeschool.myblog.model.Category;
 import org.wildcodeschool.myblog.repository.CategoryRepository;
 
@@ -36,8 +35,8 @@ public class CategoryController {
         categoryDTO.setId(category.getId());
         categoryDTO.setName(category.getName());
         categoryDTO.setUpdatedAt(category.getUpdatedAt());
-        if (categoryDTO.getLinkedArticles() != null) {
-            categoryDTO.setLinkedArticles(category.getArticles().stream().map(article -> {
+        if (categoryDTO.getArticles() != null) {
+            categoryDTO.setArticles(category.getArticles().stream().map(article -> {
                 ArticleDTO articleDTO = new ArticleDTO();
                 articleDTO.setId(article.getId());
                 articleDTO.setTitle(article.getTitle());
