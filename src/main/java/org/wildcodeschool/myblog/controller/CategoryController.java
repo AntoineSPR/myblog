@@ -35,7 +35,7 @@ public class CategoryController {
         categoryDTO.setId(category.getId());
         categoryDTO.setName(category.getName());
         categoryDTO.setUpdatedAt(category.getUpdatedAt());
-        if (categoryDTO.getArticles() != null) {
+        if (category.getArticles() != null) {
             categoryDTO.setArticles(category.getArticles().stream().map(article -> {
                 ArticleDTO articleDTO = new ArticleDTO();
                 articleDTO.setId(article.getId());
