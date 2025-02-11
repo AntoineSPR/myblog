@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.wildcodeschool.myblog.dto.ArticleCreateDTO;
 import org.wildcodeschool.myblog.dto.ArticleDTO;
 import org.wildcodeschool.myblog.model.Article;
 import org.wildcodeschool.myblog.service.ArticleService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/articles")
@@ -45,8 +48,8 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<ArticleDTO> createArticle(@RequestBody Article article) {
-        ArticleDTO savedArticle = articleService.createArticle(article);
+    public ResponseEntity<ArticleDTO> createArticle(@Valid @RequestBody ArticleCreateDTO articleCreateDTO) {
+        ArticleDTO savedArticle = articleService.createArticle(articleCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
     }
 

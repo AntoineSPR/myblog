@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.wildcodeschool.myblog.dto.ArticleCreateDTO;
 import org.wildcodeschool.myblog.dto.ArticleDTO;
 import org.wildcodeschool.myblog.exception.ResourceNotFoundException;
 import org.wildcodeschool.myblog.mapper.ArticleMapper;
@@ -56,57 +57,9 @@ public class ArticleService {
         return articleMapper.convertToDTO(article);
     }
 
-    public ArticleDTO createArticle(Article article) {
-        article.setCreatedAt(LocalDateTime.now());
-        article.setUpdatedAt(LocalDateTime.now());
-
-        // Gestion de la catégorie
-        if (article.getCategory() != null) {
-            Category category = categoryRepository.findById(article.getCategory().getId()).orElse(null);
-            if (category == null) {
-                return null;
-            }
-            article.setCategory(category);
-        }
-
-        // Gestion des images
-        if (article.getImages() != null && !article.getImages().isEmpty()) {
-            List<Image> validImages = new ArrayList<>();
-            for (Image image : article.getImages()) {
-                if (image.getId() != null) {
-                    Image existingImage = imageRepository.findById(image.getId()).orElse(null);
-                    if (existingImage != null) {
-                        validImages.add(existingImage);
-                    } else {
-                        return null;
-                    }
-                } else {
-                    Image savedImage = imageRepository.save(image);
-                    validImages.add(savedImage);
-                }
-            }
-            article.setImages(validImages);
-        }
-
+    public ArticleDTO createArticle(ArticleCreateDTO articleCreateDTO) {
+        Article article = articleMapper.convertToEntity(articleCreateDTO);
         Article savedArticle = articleRepository.save(article);
-
-        // Gestion des auteurs
-        if (article.getArticleAuthors() != null) {
-            for (ArticleAuthor articleAuthor : article.getArticleAuthors()) {
-                Author author = articleAuthor.getAuthor();
-                author = authorRepository.findById(author.getId()).orElse(null);
-                if (author == null) {
-                    return null;
-                }
-
-                articleAuthor.setAuthor(author);
-                articleAuthor.setArticle(savedArticle);
-                articleAuthor.setContribution(articleAuthor.getContribution());
-
-                articleAuthorRepository.save(articleAuthor);
-            }
-        }
-
         return articleMapper.convertToDTO(savedArticle);
     }
 
