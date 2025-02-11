@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.wildcodeschool.myblog.dto.ImageDTO;
+import org.wildcodeschool.myblog.exception.ResourceNotFoundException;
 import org.wildcodeschool.myblog.mapper.ImageMapper;
 import org.wildcodeschool.myblog.model.Image;
 import org.wildcodeschool.myblog.repository.ImageRepository;
@@ -30,7 +31,7 @@ public class ImageService {
     public ImageDTO getImageById(Long id) {
         return imageRepository.findById(id)
                 .map(imageMapper::convertToDTO)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("L'image avec l'id " + id + " n'existe pas."));
     }
 
     public ImageDTO createImage(Image image) {

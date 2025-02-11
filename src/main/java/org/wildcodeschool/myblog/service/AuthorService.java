@@ -5,9 +5,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.wildcodeschool.myblog.dto.AuthorDTO;
+import org.wildcodeschool.myblog.exception.ResourceNotFoundException;
 import org.wildcodeschool.myblog.mapper.AuthorMapper;
 import org.wildcodeschool.myblog.model.Author;
 import org.wildcodeschool.myblog.repository.AuthorRepository;
+
+import jakarta.annotation.Resource;
 
 @Service
 public class AuthorService {
@@ -30,7 +33,7 @@ public class AuthorService {
     public AuthorDTO getAuthorById(Long id) {
         return authorRepository.findById(id)
                 .map(authorMapper::convertToDTO)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("L'auteur possédant l'id " + id + " n'existe pas."));
     }
 
     public List<Author> getAuthorsByName(String searchTerms) {

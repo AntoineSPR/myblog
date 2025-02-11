@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.wildcodeschool.myblog.dto.CategoryDTO;
+import org.wildcodeschool.myblog.exception.ResourceNotFoundException;
 import org.wildcodeschool.myblog.mapper.CategoryMapper;
 import org.wildcodeschool.myblog.model.Category;
 import org.wildcodeschool.myblog.repository.CategoryRepository;
@@ -31,7 +32,7 @@ public class CategoryService {
     public CategoryDTO getCategoryById(Long id) {
         return categoryRepository.findById(id)
                 .map(categoryMapper::convertToDTO)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("La catégorie avec l'id " + id + " n'existe pas."));
     }
 
     public CategoryDTO createCategory(Category category) {
