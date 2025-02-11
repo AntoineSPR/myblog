@@ -2,10 +2,12 @@ package org.wildcodeschool.myblog.mapper;
 
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
 import org.wildcodeschool.myblog.dto.ImageDTO;
 import org.wildcodeschool.myblog.model.Article;
 import org.wildcodeschool.myblog.model.Image;
 
+@Component
 public class ImageMapper {
     public ImageDTO convertToDTO(Image image) {
         ImageDTO imageDTO = new ImageDTO();
